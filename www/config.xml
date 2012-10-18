@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.spokanekaraho.karahowhere"
+        versionCode="10" 
+        version   = "0.1.0">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Karaho Where Mobile</name>
+
+    <description>
+        A locator for Karaho Kempo Schools 
+    </description>
+
+    <author href="http://www.bryan-ando.com" email="bryan@bryan-ando.com">
+        Bryan Ando 
+    </author>
+	<preference name="fullscreen" value="true" />
+	<preference name="orientation" value="portrait" />
+	<preference name="prerendered-icon" value="true" />
+	<preference name="ios-statusbarstyle" value="black-opaque" />
+	<preference name="detect-data-types" value="true" />
+	<preference name="exit-on-suspend" value="true" />
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
+	<access origin="*" />
+</widget>
