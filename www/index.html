@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobil.custom.structure.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobil.custom.theme.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom_styles.css" />
+		<script type="text/javascript" src="phonegap.js"></script>
+		<script type="text/javascript" src="http://www.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js?key=Fmjtd%7Cluuanu68ll%2Cbl%3Do5-96aw1z"></script>
+		<script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
+		<script type="text/javascript" src="js/Interface.js"></script>
+		<script type="text/javascript" src="js/School.js"></script>
+		<script type="text/javascript">
+			$(document).bind("mobileinit", function() {
+			    $.support.cors = true;
+			    $.mobile.allowCrossDomainPages = true;
+			});
+			var globalInterface = new Interface();
+			var currentLat, currentLng, deviceReady, windowReady;
+			var geoSuccess = function(position){
+				currentLat = position.coords.latitude;
+				currentLng = position.coords.longitude;
+			};
+			var geoError = function(error){
+			    alert('geo error code: '    + error.code    + '\n' +
+			          'geo error message: ' + error.message + '\n');
+			};
+			var onWatchSuccess = function(position){
+				currentLat = position.coords.latitude;
+				currentLng = position.coords.longitude;
+				globalInterface.updateDistances();
+			};
+			document.addEventListener("deviceready", onDeviceReady, false);
+			var onDeviceReady = function(){
+				deviceReady = true;
+				if (windowReady){
+					createMap();
+				}
+			};
+			var createMap = function(){
+				navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+				currentLat = 46;
+				currentLng = -118;
+			    var options={
+			    	elt:document.getElementById('map'),      
+			    	zoom:10,                                  
+			    	latLng:{lat: currentLat, lng: currentLng},  
+			    	mtype:'map',                              
+			    	bestFitMargin:0,                           
+			    	zoomOnDoubleClick:true                    
+			    }; 
+			    window.map = new MQA.TileMap(options);
+			    MQA.withModule('smallzoom',function() {
+			    	  /*
+			    	   * the the style display property of the map MUST not be set to "none" when adding a control!
+			    	   */
+			   		map.addControl(
+			    		new MQA.SmallZoom(), 
+			    		new MQA.MapCornerPlacement(MQA.MapCorner.TOP_LEFT, new MQA.Size(5,5))
+			    	);
+				});
+			}
+			$(document).bind("pageinit", function(){
+				windowReady = true;
+				if (deviceReady){
+					createMap();
+				}
+				globalInterface.getSchools();
+				$("#sort_button").bind("click", function(){
+					globalInterface.displaySchools();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div data-role="page" id="splash">
+			<div data-role="content">
+				<img src="assets/logo.jpg" width="50" />
+				<a data-role="button" href="#sort" data-transition="fade" id="splash_button">Find Schools</a> 
+			</div>
+		</div>
+		<div data-role="page" id="sort">
+			<div data-role="content">
+				<label for="sort_column" class="select">Sort schools by...</label>
+				<select name="sort_column" id="sort_column">
+					<option value="distance" selected="selected">nearest you</option>
+					<option value="city">by city</option>
+					<option value="state">by state</option>
+					<option value="instructor">by instructor</option>
+					<option value="name">by school</option>
+					<option value="phone">by phone number</option>
+				</select>
+				<label for="sort_order" class="select"></label>
+				<select name="sort_order" id="sort_order">
+					<option value="asc" selected="selected">ascending</option>
+					<option value="desc">descending</option>
+				</select>
+				<a data-role="button" href="#list" data-transition="flip" id="sort_button">Sort Schools</a>
+			</div>
+		</div>
+		<div data-role="page" id="list">
+			<div data-role="content" id="list_content"></div>
+		</div>
+		<div data-role="page" id="map_page">
+			<div data-role="content" id="map_wrapper">
+				<div id="map"></div>
+			</div>
+			<div data-role="footer" id="map_footer"></div>
+		</div>
+		<div data-role="page" id="directions">
+			<div data-role="content" id="directions_wrapper"></div>
+			<div data-role="footer" id="directions_footer"></div>
+		</div>
+		<div data-role="page" id="school">
+			<div data-role="content" id="school_wrapper"></div>
+			<div data-role="footer" id="school_footer"></div>
+		</div>
+	</body>
+</html>
