@@ -6,18 +6,11 @@
 		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.custom.theme.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/custom_styles.css" />
 		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
-		<script type="text/javascript" src="js/Interface.js"></script>
-		<script type="text/javascript" src="js/School.js"></script>
-		<script type="text/javascript" src="http://www.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js?key=Fmjtd%7Cluuanu68ll%2Cbl%3Do5-96aw1z"></script>
-		<script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
-		
 		<script type="text/javascript">
 			$(document).bind("mobileinit", function() {
 			    $.support.cors = true;
 			    $.mobile.allowCrossDomainPages = true;
 			});
-			var globalInterface = new Interface();
 			var currentLat, currentLng, deviceReady, windowReady;
 			var geoSuccess = function(position){
 				currentLat = position.coords.latitude;
@@ -73,6 +66,7 @@
 				});
 			});
 		</script>
+		<script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
 	</head>
 	<body>
 		<div data-role="page" id="splash">
@@ -117,5 +111,12 @@
 			<div data-role="content" id="school_wrapper"></div>
 			<div data-role="footer" id="school_footer"></div>
 		</div>
+		<script type="text/javascript" src="phonegap.js"></script>
+		<script type="text/javascript" src="js/Interface.js"></script>
+		<script type="text/javascript" src="js/School.js"></script>
+		<script type="text/javascript" src="http://www.mapquestapi.com/sdk/js/v7.0.s/mqa.toolkit.js?key=Fmjtd%7Cluuanu68ll%2Cbl%3Do5-96aw1z"></script>
+		<script type="text/javascript">
+			var globalInterface = new Interface();
+		</script>
 	</body>
 </html>

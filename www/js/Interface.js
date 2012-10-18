@@ -95,9 +95,9 @@ var Interface = function(){
             navigator.geolocation.clearWatch(this.watchID);
             this.watchID = null;
         }
-		var e = document.getElementById("sortColumn");
+		var e = document.getElementById("sort_column");
 		var sortColumn = e.options[e.selectedIndex].value;
-		e = document.getElementById("sortOrder");
+		e = document.getElementById("sort_order");
 		var sortOrder = e.options[e.selectedIndex].value;
 		sortSchools(sortColumn, sortOrder);
 		$(".list_entry").remove();
@@ -124,7 +124,7 @@ var Interface = function(){
 					'<a data-role="button" href="#directions" data-transition="filp" data-inline="true" onclick="globalInterface.showRoute("directions", '+i+')">Directions</a>'+
 					'<a data-role="button" href="#map" data-transition="filp" data-inline="true" onclick="globalInterface.showRoute("map", '+i+')">Map</a>'+
 					'<p id="sort_data_'+i+'">'+sortData+'</p>'+
-					'</div>';
+					'</div>'
 			);
 			
 		}
